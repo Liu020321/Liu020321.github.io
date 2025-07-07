@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>智能体切换列表</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    }
+    body {
+        background-color: #F3EFFA;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+    }
+    .agent-list {
+        background-color: #F3EFFA;
+        border-radius: 16px;
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #E0D5F5;
+    }
+    .header h1 {
+        color: #5A3DB8;
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .agents-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+    }
+    .agent-card {
+        background: white;
+        border-radius: 14px;
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        width: 100%;
+    }
+    .agent-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        border-color: #E0D5F5;
+    }
+    .agent-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        color: white;
+    }
+    .agent-info {
+        flex-grow: 1;
+    }
+    .agent-info h3 {
+        color: #5A3DB8;
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+    .agent-info p {
+        color: #8A74C3;
+        font-size: 0.9rem;
+    }
+    .indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #D0C2F0;
+    }
+    @media (max-width: 600px) {
+        body {
+            padding: 10px;
+        }
+        .header h1 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="agent-list">
+        <div class="header">
+            <h1><i class="fas fa-robot"></i> 智能体切换</h1>
+        </div>
+        <div class="agents-container">
+            <div class="agent-card" data-link="https://5iaglyjf.mh.chaoxing.com/v2/p/d406366c55b0b311f02a1d37c133f12e3ce5">
+                <div class="agent-icon" style="background: linear-gradient(135deg, #6A5ACD, #9370DB);">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="agent-info">
+                    <h3>医学教育AI</h3>
+                    <p>专业医学知识教学</p>
+                </div>
+                <div class="indicator"></div>
+            </div>
+            <div class="agent-card" data-link="https://5iaglyjf.mh.chaoxing.com/v2/p/064bd1eb25b32111f02adc57d71eaaf85566">
+                <div class="agent-icon" style="background: linear-gradient(135deg, #20B2AA, #40E0D0);">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <div class="agent-info">
+                    <h3>临床辅助决策</h3>
+                    <p>辅助医生制定治疗方案</p>
+                </div>
+                <div class="indicator"></div>
+            </div>
+            <div class="agent-card" data-link="https://5iaglyjf.mh.chaoxing.com/v2/p/58b95a2945b32311f0182d53d581a80e3af3">
+                <div class="agent-icon" style="background: linear-gradient(135deg, #FF6347, #FFA07A);">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="agent-info">
+                    <h3>专科疾病管理</h3>
+                    <p>针对性专科疾病管理</p>
+                </div>
+                <div class="indicator"></div>
+            </div>
+            <div class="agent-card" data-link="https://5iaglyjf.mh.chaoxing.com/v2/p/7e11e6b415b32111f01a83758d96d6c5a050">
+                <div class="agent-icon" style="background: linear-gradient(135deg, #9370DB, #BA55D3);">
+                    <i class="fas fa-scalpel"></i>
+                </div>
+                <div class="agent-info">
+                    <h3>外科手术规划</h3>
+                    <p>精准手术方案设计</p>
+                </div>
+                <div class="indicator"></div>
+            </div>
+            <div class="agent-card" data-link="https://5iaglyjf.mh.chaoxing.com/v2/p/af8a160715b32111f01a83731131169a918a">
+                <div class="agent-icon" style="background: linear-gradient(135deg, #3CB371, #2E8B57);">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="agent-info">
+                    <h3>慢病管理</h3>
+                    <p>长期疾病管理与监控</p>
+                </div>
+                <div class="indicator"></div>
+            </div>
+        </div>
+    </div>
+<script>
+const agentCards = document.querySelectorAll('.agent-card');
+agentCards.forEach(card => {
+    card.addEventListener('click', function() {
+        const link = this.getAttribute('data-link');
+        window.top.location.href = link; // 刷新整个浏览器页面跳转
+    });
+});
+</script>
+</body>
+</html>
