@@ -298,6 +298,32 @@ h1,.win h2{background:none!important;background-image:none!important;-webkit-bac
 .btn{background:#d6b2ea!important;background-image:none!important;color:#352743!important;box-shadow:none!important}
 `.replaceAll('CURRENT_TITLE',getTheme()==='light'?'#b874aa':'#f5c4e8').replaceAll('ROUND_BG',getTheme()==='light'?'#f5f0fc':'#2d2944');
 doc.head.appendChild(fix);
+// Render a clean, intentional screenshot canvas. html2canvas misinterprets
+// fixed multi-layer radial gradients and background-clip:text in some browsers.
+const light=doc.documentElement.dataset.theme==='light';
+const base=light?'#f8f4fc':'#121126';
+doc.documentElement.style.setProperty('background',base,'important');
+body.style.setProperty('background',base,'important');
+body.style.setProperty('background-image','none','important');
+body.style.setProperty('background-attachment','scroll','important');
+const stable=doc.createElement('style');
+stable.textContent=`
+html[data-theme="light"] body,html[data-theme="dark"] body{background-image:none!important;background:CAPTURE_BG!important;background-attachment:scroll!important}
+body::before,body::after{content:none!important;display:none!important}
+main{background:transparent!important}
+h1,html[data-theme="light"] h1,html[data-theme="dark"] h1,.hero h1,.win h2,html[data-theme="light"] .win h2{
+ background:none!important;background-image:none!important;background-clip:border-box!important;-webkit-background-clip:border-box!important;
+ -webkit-text-fill-color:CAPTURE_TEXT!important;color:CAPTURE_TEXT!important;text-shadow:none!important;
+}
+.card,html[data-theme="light"] .card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+`.replaceAll('CAPTURE_BG',base).replaceAll('CAPTURE_TEXT',light?'#9b578e':'#f2b9da');
+doc.head.appendChild(stable);
+doc.querySelectorAll('h1,.win h2').forEach(el=>{
+ el.style.setProperty('background','none','important');
+ el.style.setProperty('background-image','none','important');
+ el.style.setProperty('-webkit-text-fill-color',light?'#9b578e':'#f2b9da','important');
+ el.style.setProperty('color',light?'#9b578e':'#f2b9da','important');
+});
 }
 });
 const fileName='同词相遇-'+new Date().toISOString().slice(0,10)+'.png';
