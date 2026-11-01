@@ -54,6 +54,26 @@ html[data-theme="light"] .card{box-shadow:0 22px 65px #70548b1e,inset 0 1px 0 #f
 html[data-theme="light"] .trace-round{background:linear-gradient(140deg,#ffffffd9,#f1eaffc9)}
 .trace-pill{box-shadow:inset 0 2px 0 #ffffffa0,0 4px 14px #100c2a13}
 .btn{box-shadow:0 7px 22px #bd95ea24}
+
+/* Adaptive decoration and wide, full-page captures */
+:root{--accent:#c8abff;--icon-tone:#e4c5ff;--hairline:#ffffff25}
+html[data-theme="light"]{--accent:#8868bb;--icon-tone:#a274bf;--hairline:#b59acb61}
+.top .logo{color:var(--icon-tone)}
+.toolbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:background .2s,box-shadow .2s,transform .2s}
+.toolbtn:hover{transform:translateY(-1px);box-shadow:0 4px 16px #8161ae29}
+html[data-theme="light"] .toolbtn{box-shadow:inset 0 1px 0 #fff,0 3px 12px #896bac15}
+html[data-theme="light"] .stars{filter:drop-shadow(0 5px 13px #e4a1cc77)}
+html[data-theme="dark"] .stars{filter:drop-shadow(0 0 19px #b78fff95)}
+html[data-theme="light"] .person{box-shadow:inset 0 1px #fff}
+html[data-theme="light"] .wordchip{color:#6c4b8d;background:#f1e9ff}
+html[data-theme="light"] .trace-label,html[data-theme="light"] .trace-round-label{color:#77648f}
+html[data-theme="light"] .code{color:#ad68ae}
+html[data-theme="light"] .btn{background:linear-gradient(110deg,#ffd4e6,#ded1ff);color:#493254}
+html[data-theme="dark"] .btn{background:linear-gradient(110deg,#ffb2cf,#b6a4ff)}
+html[data-theme="light"] .smallbtn:hover{background:#e2d6f5}
+body[data-capturing="true"] .top-actions{visibility:hidden}
+@media(min-width:850px){main{width:min(760px,calc(100% - 80px));max-width:none}.hero{padding-top:56px}.card{padding:32px 38px}}
+@media(min-width:1300px){main{width:min(810px,calc(100% - 100px))}}
 </style></head><body><main><header class="top"><div class="logo">✦ SAME WORD</div><div class="top-actions" data-capture-exclude><button id="themeSwitch" class="toolbtn" type="button" aria-label="切换明暗模式">☀️ 亮色模式</button><button id="capturePage" class="toolbtn" type="button">📸 一键长截图</button></div></header>
 <section id="home"><div class="hero"><div class="stars anim">🌙 ✧ 💫</div><h1>同词相遇</h1><div class="sub">世界上有那么多词语<br>偏偏我们，想到了同一个。</div></div><div class="card"><div class="label">你的昵称</div><input id="name" maxlength="16" placeholder="给自己起个可爱的名字" autocomplete="nickname"><div class="label">选择游玩方式</div><button class="btn secondary" id="localStart" style="margin-bottom:12px">🎭 同屏轮流 · 一台设备两个人</button><div class="label">远程联机 · 两台设备</div><button class="btn" id="create">✨ 创建双人房间</button><div class="label" style="text-align:center">— 或者加入朋友的房间 —</div><input id="joincode" maxlength="8" placeholder="输入 6 位房间号" autocapitalize="characters"><button class="btn secondary" id="join" style="margin-top:12px">加入房间 →</button></div><div class="hint">🌊 大海 ＋ ☁️ 天空 → 💙 蓝色<br>不看对方的答案，同时揭晓，直到脑回路相遇</div></section>
 <section id="game" class="hidden"><div class="hero" style="padding:25px 0 15px"><div class="stars" style="font-size:27px">✨ 💞 ✨</div><h1 style="font-size:38px">同词相遇</h1></div><div class="card"><div class="roomhead"><div><div class="label">你们的房间号</div><div class="code" id="roomcode"></div></div><button class="smallbtn" id="copy">🔗 邀请好友</button></div><div class="people"><div class="person"><div class="avatar">🪐</div><strong id="p1">你</strong><span id="s1">已加入</span></div><div class="person"><div class="avatar">🌷</div><strong id="p2">等待另一位</strong><span id="s2">等待加入</span></div></div><div id="waiting" class="joinnotice">把邀请链接发给 TA。对方加入后，即可一起开始联想。</div>
@@ -134,7 +154,7 @@ $('localExit').addEventListener('click',()=>{show('localGame',false);show('home'
 const themeBtn=document.getElementById('themeSwitch');
 const shotBtn=document.getElementById('capturePage');
 const getTheme=()=>document.documentElement.dataset.theme==='light'?'light':'dark';
-function setTheme(t){document.documentElement.dataset.theme=t;themeBtn.textContent=t==='light'?'🌙 暗色模式':'☀️ 亮色模式';document.querySelector('meta[name="theme-color"]').setAttribute('content',t==='light'?'#f7f4ff':'#110f22');try{localStorage.setItem('sameword-theme',t)}catch(e){}}
+function setTheme(t){document.documentElement.dataset.theme=t;themeBtn.textContent=t==='light'?'🌙 切换暗色':'☀️ 切换亮色';document.querySelectorAll('.stars').forEach((node,i)=>{node.textContent=t==='light'?(i===0?'🌸 ✧ ☀️':'🌷 ✧ ☀️'):(i===0?'🌙 ✧ 💫':'✨ 💞 ✨')});document.querySelector('meta[name="theme-color"]').setAttribute('content',t==='light'?'#f7f4ff':'#110f22');try{localStorage.setItem('sameword-theme',t)}catch(e){}}
 let saved;try{saved=localStorage.getItem('sameword-theme')}catch(e){}setTheme(saved==='light'||saved==='dark'?saved:(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
 themeBtn.addEventListener('click',()=>setTheme(getTheme()==='light'?'dark':'light'));
 shotBtn.addEventListener('click',async()=>{
@@ -142,17 +162,26 @@ if(typeof html2canvas!=='function'){alert('截图组件未成功加载，请检�
 shotBtn.disabled=true;shotBtn.textContent='⏳ 正在生成截图…';
 try{
 await document.fonts.ready;
-const target=document.querySelector('main');
-const canvas=await html2canvas(target,{
-backgroundColor:getTheme()==='light'?'#f7f4ff':'#100e20',
-scale:Math.min(window.devicePixelRatio||2,2),
-useCORS:true,scrollY:-window.scrollY,
-windowWidth:document.documentElement.clientWidth,
-height:target.scrollHeight,
+const viewportWidth=Math.max(320,document.documentElement.clientWidth);
+const viewportHeight=Math.max(window.innerHeight,document.documentElement.clientHeight);
+const fullHeight=Math.max(document.body.scrollHeight,document.documentElement.scrollHeight,viewportHeight);
+const scale=Math.min(window.devicePixelRatio||1.5,2);
+// Capture the browser's full page width, not only the narrow centered game column.
+// Keep the current device's responsive layout and include content below the fold.
+const canvas=await html2canvas(document.body,{
+backgroundColor:getTheme()==='light'?'#fcfaff':'#0c1026',
+scale,useCORS:true,allowTaint:false,
+scrollX:0,scrollY:0,
+x:0,y:0,
+width:viewportWidth,height:fullHeight,
+windowWidth:viewportWidth,windowHeight:fullHeight,
 onclone:doc=>{
-doc.querySelectorAll('[data-capture-exclude]').forEach(n=>n.style.display='none');
-const root=doc.querySelector('main');
-root.style.height='auto';root.style.minHeight='0';root.style.overflow='visible';
+doc.querySelectorAll('[data-capture-exclude]').forEach(n=>n.style.visibility='hidden');
+const body=doc.body,root=doc.querySelector('main');
+body.style.width=viewportWidth+'px';
+body.style.minHeight=fullHeight+'px';
+body.style.overflow='visible';
+if(root){root.style.height='auto';root.style.overflow='visible'}
 }
 });
 const fileName='同词相遇-'+new Date().toISOString().slice(0,10)+'.png';
