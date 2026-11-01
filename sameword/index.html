@@ -15,8 +15,8 @@ const view=(id,on)=>$(id).classList.toggle('hidden',!on);
 const norm=s=>safe(s).normalize('NFKC').toLocaleLowerCase('zh-CN').replace(/\s+/g,'');
 const roomid=c=>'sameword-match-'+c.toLowerCase();
 const rand=()=>Array.from(crypto.getRandomValues(new Uint8Array(6))).map(x=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[x%32]).join('');
-function leave(){if(conn)conn.close();if(peer)peer.destroy();peer=conn=null;host=false;online=false;history=[];answers={};round=1;phase='entry';ready=false;localSubmitted=false;view('home',true);view('game',false);history.replaceState(null,'',location.pathname); }
-function initRoom(){view('home',false);view('game',true);$('roomcode').textContent=code;$('p1').textContent=host?myName:'房主';$('p2').textContent=host?'等待另一位':myName;$('s1').textContent=host?'已就绪':'连接中';$('s2').textContent=host?'等待加入':'连接中';view('waiting',true);view('play',false);history.replaceState(null,'',location.pathname+'?room='+encodeURIComponent(code));}
+function leave(){if(conn)conn.close();if(peer)peer.destroy();peer=conn=null;host=false;online=false;history=[];answers={};round=1;phase='entry';ready=false;localSubmitted=false;view('home',true);view('game',false);window.history.replaceState(null,'',location.pathname); }
+function initRoom(){view('home',false);view('game',true);$('roomcode').textContent=code;$('p1').textContent=host?myName:'房主';$('p2').textContent=host?'等待另一位':myName;$('s1').textContent=host?'已就绪':'连接中';$('s2').textContent=host?'等待加入':'连接中';view('waiting',true);view('play',false);window.history.replaceState(null,'',location.pathname+'?room='+encodeURIComponent(code));}
 function link(){return location.origin+location.pathname+'?room='+encodeURIComponent(code)}
 function send(x){if(conn&&conn.open)conn.send(x)}
 function snapshot(){return {type:'sync',round,phase,history,ready,hostName:myName,guestName:other,submitted:!!answers.guest,hostSubmitted:!!answers.host};}
