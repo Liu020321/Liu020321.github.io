@@ -127,11 +127,30 @@ html[data-theme="light"] .btn{font-weight:750}
 /* Night hero: balanced luminous moon-and-stars motif */
 html[data-theme="dark"] .stars{font-family:system-ui,'Apple Color Emoji','Segoe UI Emoji',sans-serif!important;font-size:clamp(33px,6vw,46px)!important;letter-spacing:.13em!important;line-height:1.6;filter:drop-shadow(0 6px 16px #b99cff55)!important;white-space:nowrap}
 html[data-theme="dark"] .hero h1{letter-spacing:.07em}
+
+/* Small-screen rendering and accessibility optimizations */
+@media(prefers-reduced-motion:reduce){.anim{animation:none!important}.btn,.toolbtn{transition:none!important}*{scroll-behavior:auto!important}}
+@media(max-width:600px){.card{backdrop-filter:none;-webkit-backdrop-filter:none}body{background-attachment:scroll}}
 </style></head><body><main><header class="top"><div class="logo">✦ SAME WORD</div><div class="top-actions" data-capture-exclude><button id="themeSwitch" class="toolbtn" type="button" aria-label="切换明暗模式">☀️ 亮色模式</button><button id="capturePage" class="toolbtn" type="button">📸 一键长截图</button></div></header>
 <section id="home"><div class="hero"><div class="stars anim">🌙 ✨ 🌟</div><h1>同词相遇</h1><div class="sub">世界上有那么多词语<br>偏偏我们，想到了同一个。</div></div><div class="card"><div class="label">你的昵称</div><input id="name" maxlength="16" placeholder="给自己起个可爱的名字" autocomplete="nickname"><div class="label">选择游玩方式</div><button class="btn secondary" id="localStart" style="margin-bottom:12px">✦ 同屏轮流 · 一台设备两个人</button><div class="label">远程联机 · 两台设备</div><button class="btn" id="create">✧ 创建双人房间</button><div class="label" style="text-align:center">— 或者加入朋友的房间 —</div><input id="joincode" maxlength="8" placeholder="输入 6 位房间号" autocapitalize="characters"><button class="btn secondary" id="join" style="margin-top:12px">加入房间 →</button></div><div class="hint">🌊 大海 ＋ ☁️ 天空 → 💙 蓝色<br>不看对方的答案，同时揭晓，直到脑回路相遇</div></section>
 <section id="game" class="hidden"><div class="hero" style="padding:25px 0 15px"><div class="stars" style="font-size:27px">✨ 💞 ✨</div><h1 style="font-size:38px">同词相遇</h1></div><div class="card"><div class="roomhead"><div><div class="label">你们的房间号</div><div class="code" id="roomcode"></div></div><button class="smallbtn" id="copy">🔗 邀请好友</button></div><div class="people"><div class="person"><div class="avatar">🪐</div><strong id="p1">你</strong><span id="s1">已加入</span></div><div class="person"><div class="avatar">🌷</div><strong id="p2">等待另一位</strong><span id="s2">等待加入</span></div></div><div id="waiting" class="joinnotice">把邀请链接发给 TA。对方加入后，即可一起开始联想。</div>
 <div id="play" class="hidden"><div class="round" id="round">ROUND 01</div><div class="prompt" id="prompt">想到什么，就写什么</div><div class="prior hidden" id="prior"></div><div id="entry"><input id="word" maxlength="24" placeholder="输入一个词语..." autocomplete="off"><button id="submit" class="btn" style="margin-top:12px">🔮 锁定我的答案</button><p class="status" id="progress">写好后提交，双方提交才会揭晓</p></div><div id="reveal" class="hidden"><button id="next" class="btn action-first">继续联想 →</button><p id="nextwait" class="status hidden">等待房主开启下一轮...</p><div class="trace-round current"><div class="trace-label" id="onlineCurrentRound">本轮揭晓</div><div class="trace-row"><div class="trace-pill left" id="rword1"></div><div class="trace-x">×</div><div class="trace-pill right" id="rword2"></div></div></div><div class="joinnotice" id="revealmsg"></div></div><div id="won" class="win hidden"><div class="emoji">🎉 💗 🎉</div><h2>我们，同频啦！</h2><p class="status" id="winsummary"></p><button id="again" class="btn">再玩一次 ✦</button></div><div id="historybox" class="hidden"><div class="trace-heading"><strong id="historyTitle">我们的相遇轨迹</strong><span id="historyCaption">每一次联想，都在靠近彼此</span></div><div id="history" class="trace-list"></div></div></div><button id="leave" class="smallbtn" style="width:100%;margin-top:20px">退出房间</button></div></section><section id="localGame" class="hidden"><div class="hero" style="padding:30px 0 18px"><div class="stars">🎭 💗 ✨</div><h1 style="font-size:38px">同词相遇</h1><div class="sub">同屏轮流 · 交替输入 · 同时揭晓</div></div><div class="card"><div class="round" id="localRound">ROUND 01</div><div class="prompt" id="localGuide">准备好了吗？</div><div class="prior" id="localPrior"></div><div id="localEntry"><div class="joinnotice" id="localPrivacy">玩家一作答时，玩家二请暂时移开视线。</div><input id="localWord" maxlength="24" placeholder="输入你想到的词语…" autocomplete="off"><button id="localSubmit" class="btn" style="margin-top:12px">🔮 锁定答案</button></div><div id="localReveal" class="hidden"><button class="btn action-first" id="localNext">继续 →</button><div class="trace-round current"><div class="trace-label" id="localCurrentRound">本轮揭晓</div><div class="trace-row"><div class="trace-pill left" id="localA"></div><div class="trace-x">×</div><div class="trace-pill right" id="localB"></div></div></div><div class="joinnotice" id="localMessage"></div></div><div id="localWin" class="win hidden"><div class="emoji" id="localWinIcon">✦</div><h2 id="localWinTitle">我们，同频啦！</h2><p class="status" id="localWinText"></p><button class="btn" id="localPlayAgain">再玩一次 ✦</button></div><div id="localHistoryWrap" class="hidden"><div class="trace-heading"><strong id="localHistoryTitle">我们的相遇轨迹</strong><span id="localHistoryCaption">每一次联想，都在靠近彼此</span></div><div id="localHistory" class="trace-list"></div></div><button class="smallbtn" id="localExit" style="width:100%;margin-top:20px">退出同屏游戏</button></div></section><div class="footer">✦ 每一次不约而同，都值得被珍藏 ✦<br>独立制作的同词联想小游戏</div></main><div id="toast" class="notice hidden"></div>
-<script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script><script>
+<script>
+window.loadGameLibrary=(function(){
+const pending={};
+return function(name,url){
+if(window[name])return Promise.resolve();
+if(pending[name])return pending[name];
+pending[name]=new Promise((resolve,reject)=>{
+const el=document.createElement('script');el.src=url;el.async=true;
+el.onload=()=>window[name]?resolve():reject(new Error(name+' unavailable'));
+el.onerror=()=>reject(new Error('Network blocked '+name));
+document.head.appendChild(el)
+}).catch(e=>{delete pending[name];throw e});
+return pending[name]
+}
+})();
+</script><script>
 const SAYINGS={
 first:['想到什么，就写什么','让直觉先出发','第一眼浮现的词，就是答案','我们的默契从这里开始','别犹豫，写下脑海里的第一个词'],
 next:['从上一轮的词里，寻找交集','再拐一个弯，也许就相遇了','试着找到两个词的共同秘密','两条思路，能否汇成一条？','沿着彼此的联想继续靠近','想想它们共享的颜色、场景或情绪'],
@@ -152,14 +171,14 @@ const view=(id,on)=>$(id).classList.toggle('hidden',!on);
 const norm=s=>safe(s).normalize('NFKC').toLocaleLowerCase('zh-CN').replace(/\s+/g,'');
 const roomid=c=>'sameword-match-'+c.toLowerCase();
 const rand=()=>Array.from(crypto.getRandomValues(new Uint8Array(6))).map(x=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[x%32]).join('');
-function leave(){if(conn)conn.close();if(peer)peer.destroy();peer=conn=null;host=false;online=false;history=[];answers={};round=1;phase='entry';ready=false;localSubmitted=false;view('home',true);view('game',false);window.history.replaceState(null,'',location.pathname); }
-function initRoom(){view('home',false);view('game',true);$('roomcode').textContent=code;$('p1').textContent=host?myName:'房主';$('p2').textContent=host?'等待另一位':myName;$('s1').textContent=host?'已就绪':'连接中';$('s2').textContent=host?'等待加入':'连接中';view('waiting',true);view('play',false);window.history.replaceState(null,'',location.pathname+'?room='+encodeURIComponent(code));}
+function leave(){renderedHistoryKey='';if(conn)conn.close();if(peer)peer.destroy();peer=conn=null;host=false;online=false;history=[];answers={};round=1;phase='entry';ready=false;localSubmitted=false;view('home',true);view('game',false);window.history.replaceState(null,'',location.pathname); }
+function initRoom(){renderedHistoryKey='';view('home',false);view('game',true);$('roomcode').textContent=code;$('p1').textContent=host?myName:'房主';$('p2').textContent=host?'等待另一位':myName;$('s1').textContent=host?'已就绪':'连接中';$('s2').textContent=host?'等待加入':'连接中';view('waiting',true);view('play',false);window.history.replaceState(null,'',location.pathname+'?room='+encodeURIComponent(code));}
 function link(){return location.origin+location.pathname+'?room='+encodeURIComponent(code)}
 function send(x){if(conn&&conn.open)conn.send(x)}
 function snapshot(){return {type:'sync',round,phase,history,ready,hostName:myName,guestName:other,submitted:!!answers.guest,hostSubmitted:!!answers.host};}
 function sync(){if(host)send(snapshot());render()}
-function create(){myName=safe($('name').value)||'星星旅人';code=rand();host=true;initRoom();if(typeof Peer==='undefined'){msg('联机组件加载失败，请检查网络');return}peer=new Peer(roomid(code));peer.on('open',()=>{msg('房间创建成功，快邀请好友吧')});peer.on('error',e=>{msg(e.type==='unavailable-id'?'房间号撞车，请重新创建':'连接服务异常，请刷新重试')});peer.on('connection',c=>{if(conn&&conn.open){c.on('open',()=>c.send({type:'error',message:'房间已满'}));setTimeout(()=>c.close(),300);return}conn=c;setupConn()})}
-function join(){myName=safe($('name').value)||'月亮旅人';code=safe($('joincode').value).toUpperCase();if(!/^[A-Z2-9]{6}$/.test(code)){msg('请输入正确的 6 位房间号');return}host=false;initRoom();if(typeof Peer==='undefined'){msg('联机组件加载失败，请检查网络');return}peer=new Peer();peer.on('open',()=>{conn=peer.connect(roomid(code),{reliable:true});setupConn();setTimeout(()=>{if(!online)msg('尚未连接成功，请确认房主页面保持打开')},9000)});peer.on('error',()=>msg('连接异常，请检查房间号与网络'))}
+async function create(){try{await window.loadGameLibrary('Peer','https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js')}catch(e){msg('联机组件加载失败，请检查网络');return}myName=safe($('name').value)||'星星旅人';code=rand();host=true;initRoom();if(typeof Peer==='undefined'){msg('联机组件加载失败，请检查网络');return}peer=new Peer(roomid(code));peer.on('open',()=>{msg('房间创建成功，快邀请好友吧')});peer.on('error',e=>{msg(e.type==='unavailable-id'?'房间号撞车，请重新创建':'连接服务异常，请刷新重试')});peer.on('connection',c=>{if(conn&&conn.open){c.on('open',()=>c.send({type:'error',message:'房间已满'}));setTimeout(()=>c.close(),300);return}conn=c;setupConn()})}
+async function join(){try{await window.loadGameLibrary('Peer','https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js')}catch(e){msg('联机组件加载失败，请检查网络');return}myName=safe($('name').value)||'月亮旅人';code=safe($('joincode').value).toUpperCase();if(!/^[A-Z2-9]{6}$/.test(code)){msg('请输入正确的 6 位房间号');return}host=false;initRoom();if(typeof Peer==='undefined'){msg('联机组件加载失败，请检查网络');return}peer=new Peer();peer.on('open',()=>{conn=peer.connect(roomid(code),{reliable:true});setupConn();setTimeout(()=>{if(!online)msg('尚未连接成功，请确认房主页面保持打开')},9000)});peer.on('error',()=>msg('连接异常，请检查房间号与网络'))}
 function setupConn(){conn.on('open',()=>{online=true;if(!host)send({type:'hello',name:myName});else {ready=true;sync()}});conn.on('data',receive);conn.on('close',()=>{online=false;ready=false;msg('对方已离开，当前对局暂停');render()});conn.on('error',()=>msg('连接中断，请重新进入房间'))}
 function receive(d){if(!d||typeof d!=='object')return;if(d.type==='error'){msg(d.message);leave();return}
 if(host){if(d.type==='hello'){other=safe(d.name).slice(0,16)||'神秘玩家';ready=true;sync()}
@@ -170,10 +189,10 @@ if(d.type==='sync'){round=d.round;phase=d.phase;history=Array.isArray(d.history)
 }}
 function resolve(){if(!answers.host||!answers.guest)return;let a=answers.host,b=answers.guest;history.push({a,b,round});phase=norm(a)===norm(b)?'won':'reveal';answers={}}
 function submit(){let w=safe($('word').value).slice(0,24);if(!w){msg('先写下一个词吧');return}if(!ready){msg('请等待对方加入');return}if(localSubmitted)return;localSubmitted=true;if(host){answers.host=w;resolve();sync()}else{send({type:'answer',word:w});render()}$('word').value=''}
-function restart(){round=1;history=[];answers={};phase='entry';localSubmitted=false;sync()}
+function restart(){renderedHistoryKey='';round=1;history=[];answers={};phase='entry';localSubmitted=false;sync()}
 function next(){if(!host)return;if(phase==='reveal'){round++;phase='entry';answers={};localSubmitted=false;sync()}else if(phase==='won')restart()}
 function el(tag,cls,txt){let x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x}
-function render(){if(!code)return;$('p1').textContent=host?myName:other;$('p2').textContent=host?(other||'等待另一位'):myName;$('s1').textContent=ready?'在线':'等待中';$('s2').textContent=ready?'在线':'等待中';view('waiting',!ready);view('play',ready);if(!ready)return;
+let renderedHistoryKey='';function render(){if(!code)return;$('p1').textContent=host?myName:other;$('p2').textContent=host?(other||'等待另一位'):myName;$('s1').textContent=ready?'在线':'等待中';$('s2').textContent=ready?'在线':'等待中';view('waiting',!ready);view('play',ready);if(!ready)return;
 $('round').textContent='ROUND '+String(round).padStart(2,'0');
 let prev=history.length>=1?history[history.length-1]:null;
 $('prompt').textContent=phase==='won'?'':(round===1?say('first',round):say('next',round));$('prompt').classList.toggle('hidden',phase==='won');$('round').classList.toggle('hidden',phase==='won');
@@ -183,7 +202,7 @@ $('word').disabled=localSubmitted;$('submit').disabled=localSubmitted;$('submit'
 $('progress').textContent=localSubmitted?'你的答案已锁定，等另一位玩家提交…':'双方提交后自动同时揭晓';
 let last=history[history.length-1];if(last&&phase!=='entry'){$('onlineCurrentRound').textContent='第 '+last.round+' 轮';$('rword1').textContent=last.a;$('rword2').textContent=last.b;$('revealmsg').textContent=say('miss',round);$('winsummary').textContent='共 '+round+' 轮 · 同时想到「'+last.a+'」 · '+fmtSay(say('winSub',round),round);$('won').querySelector('h2').textContent=say('win',round);$('won').querySelector('.emoji').textContent=themeSymbol('win')}
 view('next',host);view('nextwait',!host);view('again',host);
-const archived=phase==='entry'||phase==='won'?history:history.slice(0,-1);view('historybox',archived.length>0);$('historyTitle').textContent=phase==='won'?'你们的脑回路相遇了':'我们的相遇轨迹';$('historyCaption').textContent=phase==='won'?'共 '+round+' 轮 · 成功撞词':'每一次联想，都在靠近彼此';$('history').replaceChildren();archived.forEach(h=>{const r=el('div','trace-round'+(norm(h.a)===norm(h.b)?' matched':''));r.append(el('div','trace-label','第 '+h.round+' 轮'));const line=el('div','trace-row');line.append(el('div','trace-pill left',h.a),el('div','trace-x','×'),el('div','trace-pill right',h.b));r.append(line);$('history').append(r)})}
+const archived=phase==='entry'||phase==='won'?history:history.slice(0,-1);view('historybox',archived.length>0);$('historyTitle').textContent=phase==='won'?'你们的脑回路相遇了':'我们的相遇轨迹';$('historyCaption').textContent=phase==='won'?'共 '+round+' 轮 · 成功撞词':'每一次联想，都在靠近彼此';const historyKey=archived.map(h=>[h.round,h.a,h.b].join('\u001f')).join('\u001e');if(historyKey!==renderedHistoryKey){renderedHistoryKey=historyKey;const fragment=document.createDocumentFragment();archived.forEach(h=>{const r=el('div','trace-round'+(norm(h.a)===norm(h.b)?' matched':''));r.append(el('div','trace-label','第 '+h.round+' 轮'));const line=el('div','trace-row');line.append(el('div','trace-pill left',h.a),el('div','trace-x','×'),el('div','trace-pill right',h.b));r.append(line);fragment.append(r)});$('history').replaceChildren(fragment)}}
 $('create').onclick=create;$('join').onclick=join;$('submit').onclick=submit;$('word').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.isComposing)submit()});$('next').onclick=next;$('again').onclick=restart;$('leave').onclick=leave;
 $('copy').onclick=async()=>{let l=link();try{await navigator.clipboard.writeText(l);msg('邀请链接已复制')}catch(e){prompt('复制邀请链接',l)}};
 if(qs.get('room')){$('joincode').value=qs.get('room').toUpperCase();$('joincode').focus()}
@@ -212,7 +231,7 @@ $('localPlayAgain').addEventListener('click',start);$('localStart').addEventList
 $('localWord').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.isComposing)submit()});
 $('localExit').addEventListener('click',()=>{show('localGame',false);show('home',true)});
 })();
-</script><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</script>
 <script>
 (()=>{'use strict';
 const themeBtn=document.getElementById('themeSwitch');
@@ -222,14 +241,14 @@ function setTheme(t){document.documentElement.dataset.theme=t;themeBtn.textConte
 let saved;try{saved=localStorage.getItem('sameword-theme')}catch(e){}setTheme(saved==='light'||saved==='dark'?saved:(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
 themeBtn.addEventListener('click',()=>setTheme(getTheme()==='light'?'dark':'light'));
 shotBtn.addEventListener('click',async()=>{
-if(typeof html2canvas!=='function'){alert('截图组件未成功加载，请检查网络后重试。');return}
+try{await window.loadGameLibrary('html2canvas','https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js')}catch(e){alert('截图组件加载失败，请检查网络后重试。');return}
 shotBtn.disabled=true;shotBtn.textContent='⏳ 正在生成截图…';
 try{
 await document.fonts.ready;
 const viewportWidth=Math.max(320,document.documentElement.clientWidth);
 const viewportHeight=Math.max(window.innerHeight,document.documentElement.clientHeight);
 const fullHeight=Math.max(document.body.scrollHeight,document.documentElement.scrollHeight,viewportHeight);
-const scale=Math.min(window.devicePixelRatio||1.5,2);
+const MAX_CANVAS_PIXELS=18000000;const baseScale=Math.min(window.devicePixelRatio||1.5,2);const scale=Math.max(.65,Math.min(baseScale,Math.sqrt(MAX_CANVAS_PIXELS/(viewportWidth*fullHeight))));
 // Capture the browser's full page width, not only the narrow centered game column.
 // Keep the current device's responsive layout and include content below the fold.
 const canvas=await html2canvas(document.body,{
