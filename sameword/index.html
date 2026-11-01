@@ -5,7 +5,30 @@
 .trace-list{display:flex;flex-direction:column;gap:14px;margin-top:16px}.trace-round{padding:14px;border:1px solid #ffffff18;border-radius:18px;background:#ffffff08}.trace-label{font-size:12px;font-weight:700;color:#c7bbde;margin-bottom:10px}.trace-row{display:grid;grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr);gap:10px;align-items:center}.trace-pill{min-width:0;min-height:62px;padding:12px 8px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;line-height:1.35;text-align:center;overflow-wrap:anywhere;box-shadow:inset 0 1px 0 #ffffff55}.trace-pill.left{background:linear-gradient(145deg,#eee7ff,#ded3fa);color:#57447f}.trace-pill.right{background:linear-gradient(145deg,#e6fbfa,#cdf1f0);color:#286d73}.trace-x{text-align:center;font-weight:800;color:#bdb3d3;font-size:19px}.trace-round.matched{border-color:#fbbbdc80;box-shadow:0 0 22px #ef8fc51c}.trace-heading{text-align:center;padding:10px 0 4px}.trace-heading strong{display:block;font-size:20px}.trace-heading span{display:block;font-size:12px;color:#aaa0bd;margin-top:8px}.trace-round.current{margin:16px 0}.trace-round.current .trace-pill{min-height:74px;font-size:22px}@media(max-width:380px){.trace-row{gap:5px;grid-template-columns:minmax(0,1fr) 18px minmax(0,1fr)}.trace-pill{min-height:54px;font-size:16px;padding:10px 5px}}
 /* Unified round-by-round answer cards */
 .trace-list{display:flex;flex-direction:column;gap:13px;margin-top:15px}.trace-round{background:#ffffff08;border:1px solid #ffffff17;border-radius:18px;padding:14px}.trace-round-label{font-size:12px;color:#c4b9d9;font-weight:700;margin-bottom:10px}.trace-row{display:grid;grid-template-columns:minmax(0,1fr) 25px minmax(0,1fr);gap:9px;align-items:center}.trace-pill{border-radius:15px;min-height:59px;padding:11px 8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;text-align:center;overflow-wrap:anywhere;word-break:break-word}.trace-pill.left{background:linear-gradient(140deg,#eee6ff,#ded6fa);color:#584489}.trace-pill.right{background:linear-gradient(140deg,#dffff9,#d5f2f0);color:#28747a}.trace-x{text-align:center;color:#bbb0d1;font-size:20px;font-weight:800}.trace-header{text-align:center;padding:12px 0 5px}.trace-header strong{display:block;font-size:21px}.trace-header span{display:block;color:#b6aac9;font-size:12px;margin-top:7px}.trace-match{border-color:#ffb0d58c;box-shadow:0 0 20px #ffa5d21c}.trace-match .trace-pill{box-shadow:0 0 0 2px #ffffff40 inset}@media(max-width:420px){.trace-round{padding:11px}.trace-pill{font-size:16px;min-height:53px}.trace-row{gap:6px;grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr)}}
-</style></head><body><main><header class="top"><div class="logo">✦ SAME WORD</div><div class="pill">双人联机 · 同屏轮流 · 手机电脑适配</div></header>
+
+/* Theme and screenshot controls */
+:root{--ambient-1:#442758;--ambient-2:#27375c;--panel-a:#29233fdd;--panel-b:#19172ddd;--field:#120f24;--ink:#fff;--secondary-ink:#c8c2db}
+body{background:radial-gradient(ellipse at 20% 10%,var(--ambient-1) 0,transparent 48%),radial-gradient(ellipse at 85% 65%,var(--ambient-2) 0,transparent 44%),var(--bg);color:var(--ink)}
+.card{background:linear-gradient(140deg,var(--panel-a),var(--panel-b))}
+input{background:var(--field);color:var(--ink)}.sub{color:var(--secondary-ink)}
+.top{flex-wrap:wrap}.top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.toolbtn{border:1px solid var(--line);border-radius:24px;padding:9px 12px;background:#ffffff14;color:var(--ink);font-size:12px;white-space:nowrap}
+html[data-theme="light"]{color-scheme:light;--bg:#f7f4ff;--ambient-1:#ecdef9;--ambient-2:#e5eafa;--panel-a:#fffffff7;--panel-b:#f4f0fff7;--field:#fff;--ink:#352a4a;--secondary-ink:#726884;--line:#75639730}
+html[data-theme="light"] .pill{color:#645979;background:#ffffff88}
+html[data-theme="light"] .label,html[data-theme="light"] .round,html[data-theme="light"] .trace-label,html[data-theme="light"] .trace-round-label{color:#66577e}
+html[data-theme="light"] .hint,html[data-theme="light"] .status,html[data-theme="light"] .footer,html[data-theme="light"] .trace-heading span,html[data-theme="light"] .trace-header span{color:#817390}
+html[data-theme="light"] .prompt,html[data-theme="light"] .trace-heading strong{color:#382e4e}
+html[data-theme="light"] .card{border-color:#786b982e;box-shadow:0 18px 48px #59417c18}
+html[data-theme="light"] .secondary,html[data-theme="light"] .smallbtn,html[data-theme="light"] .toolbtn{background:#eee7fb;color:#4f4165;border-color:#b9a8d64d}
+html[data-theme="light"] .person,html[data-theme="light"] .wordchip,html[data-theme="light"] .trace-round{background:#f1edfa;border-color:#c7badf55}
+html[data-theme="light"] .joinnotice{background:#f3ecfb;border-color:#d1c6e855;color:#695b7b}
+html[data-theme="light"] .person span,html[data-theme="light"] .trace-x{color:#857791}
+html[data-theme="light"] .hist{color:#655977;border-color:#d3c7e9}
+html[data-theme="light"] .code{color:#9d5298}
+html[data-theme="light"] .pill,html[data-theme="light"] input{border-color:#cbbddd}
+html[data-theme="light"] .win h2{background-image:linear-gradient(90deg,#c45b8e,#7754ae)}
+html[data-theme="light"] body:before{opacity:.15}
+@media(max-width:460px){.top{justify-content:center}.top-actions{justify-content:center}.pill{display:none}main{padding-top:17px}}
+</style></head><body><main><header class="top"><div class="logo">✦ SAME WORD</div><div class="top-actions" data-capture-exclude><button id="themeSwitch" class="toolbtn" type="button" aria-label="切换明暗模式">☀️ 亮色模式</button><button id="capturePage" class="toolbtn" type="button">📸 一键长截图</button></div></header>
 <section id="home"><div class="hero"><div class="stars anim">🌙 ✧ 💫</div><h1>同词相遇</h1><div class="sub">世界上有那么多词语<br>偏偏我们，想到了同一个。</div></div><div class="card"><div class="label">你的昵称</div><input id="name" maxlength="16" placeholder="给自己起个可爱的名字" autocomplete="nickname"><div class="label">选择游玩方式</div><button class="btn secondary" id="localStart" style="margin-bottom:12px">🎭 同屏轮流 · 一台设备两个人</button><div class="label">远程联机 · 两台设备</div><button class="btn" id="create">✨ 创建双人房间</button><div class="label" style="text-align:center">— 或者加入朋友的房间 —</div><input id="joincode" maxlength="8" placeholder="输入 6 位房间号" autocapitalize="characters"><button class="btn secondary" id="join" style="margin-top:12px">加入房间 →</button></div><div class="hint">🌊 大海 ＋ ☁️ 天空 → 💙 蓝色<br>不看对方的答案，同时揭晓，直到脑回路相遇</div></section>
 <section id="game" class="hidden"><div class="hero" style="padding:25px 0 15px"><div class="stars" style="font-size:27px">✨ 💞 ✨</div><h1 style="font-size:38px">同词相遇</h1></div><div class="card"><div class="roomhead"><div><div class="label">你们的房间号</div><div class="code" id="roomcode"></div></div><button class="smallbtn" id="copy">🔗 邀请好友</button></div><div class="people"><div class="person"><div class="avatar">🪐</div><strong id="p1">你</strong><span id="s1">已加入</span></div><div class="person"><div class="avatar">🌷</div><strong id="p2">等待另一位</strong><span id="s2">等待加入</span></div></div><div id="waiting" class="joinnotice">把邀请链接发给 TA。对方加入后，即可一起开始联想。</div>
 <div id="play" class="hidden"><div class="round" id="round">ROUND 01</div><div class="prompt" id="prompt">想到什么，就写什么</div><div class="prior hidden" id="prior"></div><div id="entry"><input id="word" maxlength="24" placeholder="输入一个词语..." autocomplete="off"><button id="submit" class="btn" style="margin-top:12px">🔮 锁定我的答案</button><p class="status" id="progress">写好后提交，双方提交才会揭晓</p></div><div id="reveal" class="hidden"><div class="trace-round current"><div class="trace-label" id="onlineCurrentRound">本轮揭晓</div><div class="trace-row"><div class="trace-pill left" id="rword1"></div><div class="trace-x">×</div><div class="trace-pill right" id="rword2"></div></div></div><div class="joinnotice" id="revealmsg"></div><button id="next" class="btn">继续联想 →</button><p id="nextwait" class="status hidden">等待房主开启下一轮...</p></div><div id="won" class="win hidden"><div class="emoji">🎉💗🎉</div><h2>我们，同频啦！</h2><p class="status" id="winsummary"></p><button id="again" class="btn">再玩一次 ✨</button></div><div id="historybox" class="hidden"><div class="trace-heading"><strong id="historyTitle">我们的相遇轨迹</strong><span id="historyCaption">每一次联想，都在靠近彼此</span></div><div id="history" class="trace-list"></div></div></div><button id="leave" class="smallbtn" style="width:100%;margin-top:20px">退出房间</button></div></section><section id="localGame" class="hidden"><div class="hero" style="padding:30px 0 18px"><div class="stars">🎭 💗 ✨</div><h1 style="font-size:38px">同词相遇</h1><div class="sub">同屏轮流 · 交替输入 · 同时揭晓</div></div><div class="card"><div class="round" id="localRound">ROUND 01</div><div class="prompt" id="localGuide">准备好了吗？</div><div class="prior" id="localPrior"></div><div id="localEntry"><div class="joinnotice" id="localPrivacy">玩家一作答时，玩家二请暂时移开视线。</div><input id="localWord" maxlength="24" placeholder="输入你想到的词语…" autocomplete="off"><button id="localSubmit" class="btn" style="margin-top:12px">🔮 锁定答案</button></div><div id="localReveal" class="hidden"><div class="trace-round current"><div class="trace-label" id="localCurrentRound">本轮揭晓</div><div class="trace-row"><div class="trace-pill left" id="localA"></div><div class="trace-x">×</div><div class="trace-pill right" id="localB"></div></div></div><div class="joinnotice" id="localMessage"></div><button class="btn" id="localNext">继续 →</button></div><div id="localHistoryWrap" class="hidden"><div class="trace-heading"><strong id="localHistoryTitle">我们的相遇轨迹</strong><span id="localHistoryCaption">每一次联想，都在靠近彼此</span></div><div id="localHistory" class="trace-list"></div></div><button class="smallbtn" id="localExit" style="width:100%;margin-top:20px">退出同屏游戏</button></div></section><div class="footer">✦ 每一次不约而同，都值得被珍藏 ✦<br>独立制作的同词联想小游戏</div></main><div id="toast" class="notice hidden"></div>
@@ -72,11 +95,54 @@ if(round>1){const last=records.at(-1);last.forEach((x,i)=>{if(i)$('localPrior').
 show('localHistoryWrap',records.length>0);$('localHistory').classList.add('trace-list');
 $('localHistory').replaceChildren();records.forEach((w,i)=>{const d=document.createElement('div');d.className='trace-round'+(norm(w[0])===norm(w[1])?' matched':'');const lab=document.createElement('div');lab.className='trace-label';lab.textContent='第 '+(i+1)+' 轮';const row=document.createElement('div');row.className='trace-row';for(let j=0;j<3;j++){const cell=document.createElement('div');cell.className=j===1?'trace-x':'trace-pill '+(j===0?'left':'right');cell.textContent=j===1?'×':w[j===0?0:1];row.append(cell)}d.append(lab,row);$('localHistory').append(d)});
 }
-function submit(){const w=$('localWord').value.trim();if(!w){alert('请先输入一个词语');return}words.push(w);$('localWord').value='';if(turn===0){turn=1;render()}else{records.push(words.slice());won=norm(words[0])===norm(words[1]);show('localEntry',false);show('localReveal',true);$('localGuide').textContent=won?'🎉 我们，同频啦！':'再靠近一点点！';$('localCurrentRound').textContent='第 '+round+' 轮';$('localRoundLabel').textContent='第 '+round+' 轮';$('localA').textContent=words[0];$('localB').textContent=words[1];$('localMessage').textContent=won?'第 '+round+' 轮默契相遇成功，恭喜你们！':'还没撞词，下一轮从这两个词里寻找共同联想。';$('localNext').textContent=won?'再玩一次 ✨':'进入下一轮 →';renderHistory()}}
+function submit(){const w=$('localWord').value.trim();if(!w){alert('请先输入一个词语');return}words.push(w);$('localWord').value='';if(turn===0){turn=1;render()}else{records.push(words.slice());won=norm(words[0])===norm(words[1]);show('localEntry',false);show('localReveal',true);$('localGuide').textContent=won?'🎉 我们，同频啦！':'再靠近一点点！';$('localCurrentRound').textContent='第 '+round+' 轮';$('localA').textContent=words[0];$('localB').textContent=words[1];$('localMessage').textContent=won?'第 '+round+' 轮默契相遇成功，恭喜你们！':'还没撞词，下一轮从这两个词里寻找共同联想。';$('localNext').textContent=won?'再玩一次 ✨':'进入下一轮 →';renderHistory()}}
 function renderHistory(){$('localHistoryTitle').textContent=won?'你们的脑回路相遇了':'我们的相遇轨迹';$('localHistoryCaption').textContent=won?'共 '+round+' 轮 · 成功撞词':'每一次联想，都在靠近彼此';show('localHistoryWrap',true);$('localHistory').classList.add('trace-list');$('localHistory').replaceChildren();records.forEach((w,i)=>{$('localHistory').append(makeTraceCard(w[0],w[1],i+1,norm(w[0])===norm(w[1])))})}
 function next(){if(won){start()}else{round++;turn=0;words=[];render()}}
 $('localStart').addEventListener('click',start);$('localSubmit').addEventListener('click',submit);$('localNext').addEventListener('click',next);
 $('localWord').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.isComposing)submit()});
 $('localExit').addEventListener('click',()=>{show('localGame',false);show('home',true)});
+})();
+</script><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+(()=>{'use strict';
+const themeBtn=document.getElementById('themeSwitch');
+const shotBtn=document.getElementById('capturePage');
+const getTheme=()=>document.documentElement.dataset.theme==='light'?'light':'dark';
+function setTheme(t){document.documentElement.dataset.theme=t;themeBtn.textContent=t==='light'?'🌙 暗色模式':'☀️ 亮色模式';document.querySelector('meta[name="theme-color"]').setAttribute('content',t==='light'?'#f7f4ff':'#110f22');try{localStorage.setItem('sameword-theme',t)}catch(e){}}
+let saved;try{saved=localStorage.getItem('sameword-theme')}catch(e){}setTheme(saved==='light'||saved==='dark'?saved:(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
+themeBtn.addEventListener('click',()=>setTheme(getTheme()==='light'?'dark':'light'));
+shotBtn.addEventListener('click',async()=>{
+if(typeof html2canvas!=='function'){alert('截图组件未成功加载，请检查网络后重试。');return}
+shotBtn.disabled=true;shotBtn.textContent='⏳ 正在生成截图…';
+try{
+await document.fonts.ready;
+const target=document.querySelector('main');
+const canvas=await html2canvas(target,{
+backgroundColor:getTheme()==='light'?'#f7f4ff':'#100e20',
+scale:Math.min(window.devicePixelRatio||2,2),
+useCORS:true,scrollY:-window.scrollY,
+windowWidth:document.documentElement.clientWidth,
+height:target.scrollHeight,
+onclone:doc=>{
+doc.querySelectorAll('[data-capture-exclude]').forEach(n=>n.style.display='none');
+const root=doc.querySelector('main');
+root.style.height='auto';root.style.minHeight='0';root.style.overflow='visible';
+}
+});
+const fileName='同词相遇-'+new Date().toISOString().slice(0,10)+'.png';
+canvas.toBlob(async blob=>{
+if(!blob){alert('截图生成失败');return}
+const url=URL.createObjectURL(blob);
+try{
+if(navigator.canShare&&navigator.share&&navigator.canShare({files:[new File([blob],fileName,{type:'image/png'})]})){
+await navigator.share({files:[new File([blob],fileName,{type:'image/png'})],title:'同词相遇'});return
+}
+}catch(e){if(e.name==='AbortError')return}
+const a=document.createElement('a');a.href=url;a.download=fileName;document.body.appendChild(a);a.click();a.remove();
+setTimeout(()=>URL.revokeObjectURL(url),60000);
+},'image/png');
+}catch(e){console.error(e);alert('截图失败，请尝试缩短页面内容或使用浏览器截图。')}
+finally{shotBtn.disabled=false;shotBtn.textContent='📸 一键长截图'}
+});
 })();
 </script></body></html>
