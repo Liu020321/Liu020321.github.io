@@ -6,6 +6,7 @@ on:
       - 'sameword/**'
       - 'index.html'
       - 'group.html'
+      - 'sameword-shared.js'
       - '.github/workflows/deploy-sameword.yml'
       - '.nojekyll'
   workflow_dispatch:
