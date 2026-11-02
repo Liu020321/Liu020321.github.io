@@ -74,7 +74,7 @@ html[data-theme="light"] .head-logo{color:#744a9c}
 main{width:min(540px,calc(100% - 36px));max-width:none;padding:26px 0 70px}
 @media(min-width:850px){main{width:min(760px,calc(100% - 80px))}}
 @media(min-width:1300px){main{width:min(810px,calc(100% - 100px))}}
-</style></head><body><main><div class="head"><div class="head-left"><div class="head-logo">✦ SAME WORD</div><a href="./" class="return-home" id="returnHome" aria-label="返回游戏首页">← 返回游戏首页</a></div><div class="head-tools"><button id="themeToggle" type="button" class="outline head-tool">☀️ 切换亮色</button><button id="captureGroup" type="button" class="outline head-tool">📸 一键长截图</button><span class="chip">群战 · 最多 8 人 · 25 轮</span></div></div><div class="star">🌙 ✨ 💫</div><h1>同词相遇</h1><p class="muted" style="text-align:center">8 人以内共同联想 · 一起撞出同一个词</p>
+</style><script src="/sameword-shared.js"></script></head><body><main><div class="head"><div class="head-left"><div class="head-logo">✦ SAME WORD</div><a href="./" class="return-home" id="returnHome" aria-label="返回游戏首页">← 返回游戏首页</a></div><div class="head-tools"><button id="themeToggle" type="button" class="outline head-tool">☀️ 切换亮色</button><button id="captureGroup" type="button" class="outline head-tool">📸 一键长截图</button><span class="chip">群战 · 最多 8 人 · 25 轮</span></div></div><div class="star">🌙 ✨ 💫</div><h1>同词相遇</h1><p class="muted" style="text-align:center">8 人以内共同联想 · 一起撞出同一个词</p>
 <section id="home" class="panel"><div class="label">你的昵称</div><input id="name" maxlength="16" placeholder="输入昵称"><button class="wide" id="create">✨ 创建群战房间</button><div class="join-panel"><div class="label">已有房间？输入房间号</div><input id="code" maxlength="6" placeholder="6 位房间号" autocomplete="off"><div class="join-actions"><button id="join">👥 加入群战</button><button class="outline" id="watch">👁 加入观战</button></div></div><p class="muted join-hint">观战者不计入参赛名额。备战时不提供聊天或词语交流。房主可以在未满 8 人时提前开始（至少两名参赛者）。</p></section>
 <section id="room" class="panel hide"><div class="bar"><div><div class="muted">房间号 <span class="room-tip-wrap"><button type="button" class="room-tip" aria-label="房间规则说明" aria-describedby="group-room-tip">i</button><span class="room-tip-text" id="group-room-tip" role="tooltip">参赛链接可邀请最多 8 名玩家，观战链接不占参赛名额。至少 2 人即可开局，房主离开后房间将解散，最多进行 25 轮。</span></span></div><strong id="roomcode" style="font-size:28px;letter-spacing:4px"></strong></div><span id="role" class="chip"></span></div><div class="row"><button class="outline" id="invite">复制参赛链接</button><button class="outline" id="sharewatch">复制观战链接</button></div><div class="bar"><strong id="phaseTitle">准备中</strong><span id="count" class="muted"></span></div><div id="members"></div><p id="notice" class="status"></p><button id="start" class="wide hide">房主开始游戏</button><div id="entry" class="hide"><div class="label">输入你这一轮联想到的词语</div><input id="word" maxlength="24" placeholder="请输入一个词语"><button class="wide" id="submit">锁定答案 🔮</button></div><div id="action" class="hide"><button id="next" class="wide">进入下一轮 →</button></div><div id="history"></div><button class="wide outline" id="exit">主动退出房间</button></section><section id="ended" class="panel hide"><div class="em">🌌</div><div class="result" id="endtitle"></div><p class="status" id="endwhy"></p><button class="wide" id="back">返回首页</button></section><div class="footer">备战时不可交流 · 房主退出即全员解散 · 25 轮强制结束</div></main>
 <script>
@@ -82,28 +82,7 @@ main{width:min(540px,calc(100% - 36px));max-width:none;padding:26px 0 70px}
 
 // In the screenshot clone only: replace native form controls with inert text surfaces.
 // Native input value/placeholder rendering in html2canvas can create unwanted bands.
-function freezeCaptureFields(doc){
- const originFields=[...document.querySelectorAll('input,textarea')];
- const clonedFields=[...doc.querySelectorAll('input,textarea')];
- clonedFields.forEach((field,i)=>{
-  const original=originFields[i]||field;
-  const style=doc.defaultView.getComputedStyle(field);
-  const value=original.value||'';
-  const placeholder=field.getAttribute('placeholder')||'';
-  const fake=doc.createElement('div');
-  const isPlaceholder=value.length===0;
-  fake.textContent=isPlaceholder?placeholder:value;
-  const props=['boxSizing','width','minHeight','height','padding','margin','border','borderRadius','backgroundColor','color','fontFamily','fontSize','fontWeight','lineHeight','letterSpacing','textAlign'];
-  props.forEach(p=>{fake.style[p]=style[p]});
-  fake.style.display='flex';fake.style.alignItems='center';fake.style.minWidth='0';
-  fake.style.width='100%';fake.style.backgroundImage='none';fake.style.boxShadow='none';fake.style.textShadow='none';
-  fake.style.webkitTextStroke='0';fake.style.webkitTextFillColor=isPlaceholder?(doc.documentElement.dataset.theme==='light'?'#9b90a7':'#9990ac'):style.color;
-  fake.style.color=isPlaceholder?(doc.documentElement.dataset.theme==='light'?'#9b90a7':'#9990ac'):style.color;
-  fake.style.whiteSpace='pre-wrap';fake.style.overflowWrap='anywhere';fake.style.overflow='hidden';
-  fake.setAttribute('aria-hidden','true');
-  field.replaceWith(fake);
- });
-}
+
 
 const themeToggle=document.getElementById('themeToggle');function setTheme(t){document.documentElement.dataset.theme=t;themeToggle.textContent=t==='light'?'🌙 切换暗色':'☀️ 切换亮色';document.querySelector('.star').textContent=t==='light'?'🌤️ 🌷 🦋':'🌙 ✨ 💫';document.querySelector('meta[name="theme-color"]').content=t==='light'?'#faf6fd':'#161228';try{localStorage.setItem('sameword-theme',t)}catch(e){}}let initialTheme='dark';try{initialTheme=localStorage.getItem('sameword-theme')||'dark'}catch(e){}setTheme(initialTheme==='light'?'light':'dark');themeToggle.onclick=()=>setTheme(document.documentElement.dataset.theme==='light'?'dark':'light');
 
