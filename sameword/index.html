@@ -71,7 +71,7 @@ html[data-theme="light"] .code{color:#ad68ae}
 html[data-theme="light"] .btn{background:linear-gradient(110deg,#ffd4e6,#ded1ff);color:#493254}
 html[data-theme="dark"] .btn{background:linear-gradient(110deg,#ffb2cf,#b6a4ff)}
 html[data-theme="light"] .smallbtn:hover{background:#e2d6f5}
-body[data-capturing="true"] .top-actions{visibility:hidden}
+body[data-capturing="true"] .top-actions{visibility:visible}
 @media(min-width:850px){main{width:min(760px,calc(100% - 80px));max-width:none}.hero{padding-top:56px}.card{padding:32px 38px}}
 @media(min-width:1300px){main{width:min(810px,calc(100% - 100px))}}
 
@@ -267,9 +267,9 @@ let saved;try{saved=localStorage.getItem('sameword-theme')}catch(e){}setTheme(sa
 themeBtn.addEventListener('click',()=>setTheme(getTheme()==='light'?'dark':'light'));
 shotBtn.addEventListener('click',async()=>{
 try{await window.loadGameLibrary('html2canvas','https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js')}catch(e){alert('截图组件加载失败，请检查网络后重试。');return}
-shotBtn.disabled=true;shotBtn.textContent='⏳ 正在生成截图…';
+shotBtn.disabled=true;
 try{
-await document.fonts.ready;
+await document.fonts.ready;document.activeElement?.blur?.();
 const viewportWidth=Math.max(320,document.documentElement.clientWidth);
 const viewportHeight=Math.max(window.innerHeight,document.documentElement.clientHeight);
 const fullHeight=Math.max(document.body.scrollHeight,document.documentElement.scrollHeight,viewportHeight);
@@ -284,7 +284,7 @@ x:0,y:0,
 width:viewportWidth,height:fullHeight,
 windowWidth:viewportWidth,windowHeight:fullHeight,
 onclone:doc=>{
-doc.querySelectorAll('[data-capture-exclude]').forEach(n=>n.style.visibility='hidden');
+// Keep every visible page element in the capture.
 const body=doc.body,root=doc.querySelector('main');
 body.style.width=viewportWidth+'px';
 body.style.minHeight=fullHeight+'px';
@@ -295,6 +295,9 @@ if(root){root.style.height='auto';root.style.overflow='visible'}
 // Apply screenshot-only flat equivalents to the cloned document.
 const fix=doc.createElement('style');
 fix.textContent=`
+input,textarea{font-family:system-ui,'Microsoft YaHei',sans-serif!important;font-weight:400!important;letter-spacing:normal!important;text-shadow:none!important;-webkit-text-stroke:0!important;box-shadow:none!important}
+input::placeholder,textarea::placeholder{font-weight:400!important;opacity:1!important;-webkit-text-stroke:0!important}
+
 h1,.win h2{background:none!important;background-image:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;-webkit-text-fill-color:CURRENT_TITLE!important;color:CURRENT_TITLE!important;text-shadow:none!important}
 .trace-pill.left,.trace-row .trace-pill.left{background:#e9e2fb!important;background-image:none!important;color:#584586!important;-webkit-text-fill-color:#584586!important;box-shadow:none!important;border:0!important}
 .trace-pill.right,.trace-row .trace-pill.right{background:#dcf5f1!important;background-image:none!important;color:#286e73!important;-webkit-text-fill-color:#286e73!important;box-shadow:none!important;border:0!important}
