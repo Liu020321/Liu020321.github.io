@@ -307,14 +307,9 @@ doc.head.appendChild(styles);
 }
 });
 const fileName='同词相遇-'+new Date().toISOString().slice(0,10)+'.png';
-canvas.toBlob(async blob=>{
+canvas.toBlob(blob=>{
 if(!blob){alert('截图生成失败');return}
 const url=URL.createObjectURL(blob);
-try{
-if(navigator.canShare&&navigator.share&&navigator.canShare({files:[new File([blob],fileName,{type:'image/png'})]})){
-await navigator.share({files:[new File([blob],fileName,{type:'image/png'})],title:'同词相遇'});return
-}
-}catch(e){if(e.name==='AbortError')return}
 const a=document.createElement('a');a.href=url;a.download=fileName;document.body.appendChild(a);a.click();a.remove();
 setTimeout(()=>URL.revokeObjectURL(url),60000);
 },'image/png');
