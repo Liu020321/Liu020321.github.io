@@ -108,7 +108,7 @@ function send(c,m){if(c&&c.open)try{c.send(m)}catch(e){}}
 function all(m){connections.forEach(c=>send(c,m))}
 function message(t){$('notice').textContent=t}
 function finish(title,why,notify){if(ending)return;joining=false;ending=true;closed=true;if(notify&&host)all({type:'closed',title,why});show('home',false);show('room',false);show('ended',true);$('endtitle').textContent=title;$('endwhy').textContent=why;setTimeout(()=>{if(peer&&!peer.destroyed)peer.destroy()},150)}
-function exit(){if(host){finish('房间已解散','房主主动退出，所有玩家及观战者已离开。',true)}else{if(socket)send(socket,{type:'leave'});finish('你已退出房间','已主动离开本次游戏。',false)}}
+function exit(){if(host){if(ending)return;ending=true;closed=true;all({type:'closed',title:'房间已解散',why:'房主主动退出，所有玩家及观战者已离开。'});setTimeout(()=>{if(peer&&!peer.destroyed)peer.destroy()},150);location.replace('./')}else{if(socket)send(socket,{type:'leave'});finish('你已退出房间','已主动离开本次游戏。',false)}}
 function snapshot(){return{type:'state',phase,round,players:players.map(p=>({id:p.id,name:p.name,done:!!submissions[p.id]})),spectatorCount:spectators.length,records,role:'',message:phase==='lobby'?'等待房主开始 · 备战期间无法交流':phase==='entry'?'等待所有参赛玩家提交词语':phase==='reveal'?'本轮答案已揭晓':phase==='won'?'所有玩家成功同频！':'25 轮结束，未能同频'}}
 function broadcast(){const s=snapshot();connections.forEach((c,id)=>send(c,{...s,role:players.some(p=>p.id===id)?'player':'spectator'}));render(s)}
 function remove(id){connections.delete(id);players=players.filter(p=>p.id!==id);spectators=spectators.filter(p=>p!==id);delete submissions[id];if(phase==='entry'&&players.length<2){finish('房间已解散','参与人数不足两人，无法继续群战。',true);return}if(phase==='entry')resolve();broadcast()}
