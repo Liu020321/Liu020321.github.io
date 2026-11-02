@@ -131,7 +131,7 @@ html[data-theme="dark"] .hero h1{letter-spacing:.07em}
 /* Small-screen rendering and accessibility optimizations */
 @media(prefers-reduced-motion:reduce){.anim{animation:none!important}.btn,.toolbtn{transition:none!important}*{scroll-behavior:auto!important}}
 @media(max-width:600px){.card{backdrop-filter:none;-webkit-backdrop-filter:none}body{background-attachment:scroll}}
-</style></head><body><main><header class="top"><div class="logo">✦ SAME WORD</div><div class="top-actions" data-capture-exclude><button id="themeSwitch" class="toolbtn" type="button" aria-label="切换明暗模式">☀️ 亮色模式</button><button id="capturePage" class="toolbtn" type="button">📸 一键长截图</button></div></header>
+</style></head><body><main><header class="top"><div class="logo">✦ SAME WORD</div><div class="top-actions"><button id="themeSwitch" class="toolbtn" type="button" aria-label="切换明暗模式">☀️ 亮色模式</button><button id="capturePage" class="toolbtn" type="button">📸 一键长截图</button></div></header>
 <section id="home"><div class="hero"><div class="stars anim">🌙 ✨ 🌟</div><h1>同词相遇</h1><div class="sub">世界上有那么多词语<br>偏偏我们，想到了同一个。</div></div><div class="card"><div class="label">你的昵称</div><input id="name" maxlength="16" placeholder="给自己起个可爱的名字" autocomplete="nickname"><div class="label">选择游玩方式</div><button class="btn secondary" id="localStart" style="margin-bottom:12px">✦ 同屏轮流 · 一台设备两个人</button><a href="./group.html?v=20261102-3" onclick="this.href='./group.html?v='+Date.now()" class="btn secondary" style="margin:0 0 16px;text-decoration:none;text-align:center">👥 多人群战 · 最多 8 人 · 支持观战</a><div class="label">远程联机 · 两台设备</div><button class="btn" id="create" type="button" onclick="window.startSameWordCreate()">✧ 创建双人房间</button><div class="label" style="text-align:center">— 或者加入朋友的房间 —</div><input id="joincode" maxlength="8" placeholder="输入 6 位房间号" autocapitalize="characters"><button class="btn secondary" id="join" style="margin-top:12px">加入房间 →</button><button class="btn secondary" id="watchJoin" style="margin-top:10px">👁 仅观战此房间</button></div><div class="label">房主返回提示</div><div class="hint" style="margin-top:7px">原房主在同一浏览器重新输入原房间号，可以恢复房主身份。若双方断线，另一位玩家需要重新加入。</div><div class="hint">🌊 大海 ＋ ☁️ 天空 → 💙 蓝色<br>不看对方的答案，同时揭晓，直到脑回路相遇</div></section>
 <section id="game" class="hidden"><div class="hero" style="padding:25px 0 15px"><div class="stars" style="font-size:27px">✨ 💞 ✨</div><h1 style="font-size:38px">同词相遇</h1></div><div class="card"><div class="roomhead"><div><div class="label">你们的房间号</div><div class="code" id="roomcode"></div></div><div style="display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end"><button class="smallbtn" id="copy">🔗 邀请好友</button><button class="smallbtn" id="copyWatch">👁 观战链接</button></div></div><div class="people"><div class="person"><div class="avatar">🪐</div><strong id="p1">你</strong><span id="s1">已加入</span></div><div class="person"><div class="avatar">🌷</div><strong id="p2">等待另一位</strong><span id="s2">等待加入</span></div></div><div id="waiting" class="joinnotice">把邀请链接发给 TA。对方加入后，即可一起开始联想。</div>
 <div id="play" class="hidden"><div class="round" id="round">ROUND 01</div><div class="prompt" id="prompt">想到什么，就写什么</div><div class="prior hidden" id="prior"></div><div id="entry"><input id="word" maxlength="24" placeholder="输入一个词语..." autocomplete="off"><button id="submit" class="btn" style="margin-top:12px">🔮 锁定我的答案</button><p class="status" id="progress">写好后提交，双方提交才会揭晓</p></div><div id="reveal" class="hidden"><button id="next" class="btn action-first">继续联想 →</button><p id="nextwait" class="status hidden">等待房主开启下一轮...</p><div class="trace-round current"><div class="trace-label" id="onlineCurrentRound">本轮揭晓</div><div class="trace-row"><div class="trace-pill left" id="rword1"></div><div class="trace-x">×</div><div class="trace-pill right" id="rword2"></div></div></div><div class="joinnotice" id="revealmsg"></div></div><div id="won" class="win hidden"><div class="emoji">🎉 💗 🎉</div><h2>我们，同频啦！</h2><p class="status" id="winsummary"></p><button id="again" class="btn">再玩一次 ✦</button></div><div id="historybox" class="hidden"><div class="trace-heading"><strong id="historyTitle">我们的相遇轨迹</strong><span id="historyCaption">每一次联想，都在靠近彼此</span></div><div id="history" class="trace-list"></div></div></div><button id="leave" class="smallbtn" style="width:100%;margin-top:20px">退出房间</button></div></section><section id="spectate" class="hidden"><div class="hero" style="padding:25px 0 8px"><div class="stars">🌙 ✨ 🌟</div><h1 style="font-size:36px">观战中</h1><div class="sub">只看揭晓后的答案 · 不占参赛名额</div></div><div class="card"><div class="roomhead"><div><div class="label">双人房间</div><div class="code" id="spectateCode"></div></div><span class="pill">👁 观战</span></div><p id="spectateStatus" class="joinnotice">正在连接房间…</p><div class="trace-heading"><strong>相遇轨迹</strong><span id="spectateRound">等待第一轮揭晓</span></div><div id="spectateHistory" class="trace-list"></div><button id="spectateExit" class="smallbtn" style="width:100%;margin-top:22px">退出观战</button></div></section><section id="localGame" class="hidden"><div class="hero" style="padding:30px 0 18px"><div class="stars">🎭 💗 ✨</div><h1 style="font-size:38px">同词相遇</h1><div class="sub">同屏轮流 · 交替输入 · 同时揭晓</div></div><div class="card"><div class="round" id="localRound">ROUND 01</div><div class="prompt" id="localGuide">准备好了吗？</div><div class="prior" id="localPrior"></div><div id="localEntry"><div class="joinnotice" id="localPrivacy">玩家一作答时，玩家二请暂时移开视线。</div><input id="localWord" maxlength="24" placeholder="输入你想到的词语…" autocomplete="off"><button id="localSubmit" class="btn" style="margin-top:12px">🔮 锁定答案</button></div><div id="localReveal" class="hidden"><button class="btn action-first" id="localNext">继续 →</button><div class="trace-round current"><div class="trace-label" id="localCurrentRound">本轮揭晓</div><div class="trace-row"><div class="trace-pill left" id="localA"></div><div class="trace-x">×</div><div class="trace-pill right" id="localB"></div></div></div><div class="joinnotice" id="localMessage"></div></div><div id="localWin" class="win hidden"><div class="emoji" id="localWinIcon">✦</div><h2 id="localWinTitle">我们，同频啦！</h2><p class="status" id="localWinText"></p><button class="btn" id="localPlayAgain">再玩一次 ✦</button></div><div id="localHistoryWrap" class="hidden"><div class="trace-heading"><strong id="localHistoryTitle">我们的相遇轨迹</strong><span id="localHistoryCaption">每一次联想，都在靠近彼此</span></div><div id="localHistory" class="trace-list"></div></div><button class="smallbtn" id="localExit" style="width:100%;margin-top:20px">退出同屏游戏</button></div></section><div class="footer">✦ 每一次不约而同，都值得被珍藏 ✦<br>独立制作的同词联想小游戏</div></main><div id="toast" class="notice hidden"></div>
@@ -284,55 +284,26 @@ x:0,y:0,
 width:viewportWidth,height:fullHeight,
 windowWidth:viewportWidth,windowHeight:fullHeight,
 onclone:doc=>{
-// Keep every visible page element in the capture.
-const body=doc.body,root=doc.querySelector('main');
+const light=doc.documentElement.dataset.theme==='light';
+const base=light?'#faf6fd':'#131225';
+const body=doc.body;
 body.style.width=viewportWidth+'px';
 body.style.minHeight=fullHeight+'px';
 body.style.overflow='visible';
-if(root){root.style.height='auto';root.style.overflow='visible'}
-// html2canvas cannot reliably render background-clipped gradient text,
-// inset glass shadows, or some theme-dependent layered gradients.
-// Apply screenshot-only flat equivalents to the cloned document.
-const fix=doc.createElement('style');
-fix.textContent=`
-input,textarea{font-family:system-ui,'Microsoft YaHei',sans-serif!important;font-weight:400!important;letter-spacing:normal!important;text-shadow:none!important;-webkit-text-stroke:0!important;box-shadow:none!important}
-input::placeholder,textarea::placeholder{font-weight:400!important;opacity:1!important;-webkit-text-stroke:0!important}
-
-h1,.win h2{background:none!important;background-image:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;-webkit-text-fill-color:CURRENT_TITLE!important;color:CURRENT_TITLE!important;text-shadow:none!important}
-.trace-pill.left,.trace-row .trace-pill.left{background:#e9e2fb!important;background-image:none!important;color:#584586!important;-webkit-text-fill-color:#584586!important;box-shadow:none!important;border:0!important}
-.trace-pill.right,.trace-row .trace-pill.right{background:#dcf5f1!important;background-image:none!important;color:#286e73!important;-webkit-text-fill-color:#286e73!important;box-shadow:none!important;border:0!important}
-.trace-round{background:ROUND_BG!important;box-shadow:none!important}
-.card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important}
-.stars{filter:none!important;animation:none!important}
-.btn{background:#d6b2ea!important;background-image:none!important;color:#352743!important;box-shadow:none!important}
-`.replaceAll('CURRENT_TITLE',getTheme()==='light'?'#b874aa':'#f5c4e8').replaceAll('ROUND_BG',getTheme()==='light'?'#f5f0fc':'#2d2944');
-doc.head.appendChild(fix);
-// Render a clean, intentional screenshot canvas. html2canvas misinterprets
-// fixed multi-layer radial gradients and background-clip:text in some browsers.
-const light=doc.documentElement.dataset.theme==='light';
-const base=light?'#f8f4fc':'#121126';
-doc.documentElement.style.setProperty('background',base,'important');
-body.style.setProperty('background',base,'important');
-body.style.setProperty('background-image','none','important');
-body.style.setProperty('background-attachment','scroll','important');
-const stable=doc.createElement('style');
-stable.textContent=`
-html[data-theme="light"] body,html[data-theme="dark"] body{background-image:none!important;background:CAPTURE_BG!important;background-attachment:scroll!important}
-body::before,body::after{content:none!important;display:none!important}
-main{background:transparent!important}
-h1,html[data-theme="light"] h1,html[data-theme="dark"] h1,.hero h1,.win h2,html[data-theme="light"] .win h2{
- background:none!important;background-image:none!important;background-clip:border-box!important;-webkit-background-clip:border-box!important;
- -webkit-text-fill-color:CAPTURE_TEXT!important;color:CAPTURE_TEXT!important;text-shadow:none!important;
-}
-.card,html[data-theme="light"] .card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
-`.replaceAll('CAPTURE_BG',base).replaceAll('CAPTURE_TEXT',light?'#9b578e':'#f2b9da');
-doc.head.appendChild(stable);
-doc.querySelectorAll('h1,.win h2').forEach(el=>{
- el.style.setProperty('background','none','important');
- el.style.setProperty('background-image','none','important');
- el.style.setProperty('-webkit-text-fill-color',light?'#9b578e':'#f2b9da','important');
- el.style.setProperty('color',light?'#9b578e':'#f2b9da','important');
-});
+const main=doc.querySelector('main');
+if(main){main.style.height='auto';main.style.overflow='visible'}
+const styles=doc.createElement('style');
+styles.textContent=`
+body{background-image:none!important;background:CAPTURE_BG!important;background-attachment:scroll!important}
+body::before,body::after{display:none!important;content:none!important}
+.top-actions,.top,.toolbtn{visibility:visible!important;opacity:1!important;filter:none!important;transform:none!important}
+.top-actions{display:flex!important}
+h1,.win h2{background:none!important;background-image:none!important;background-clip:border-box!important;-webkit-background-clip:border-box!important;-webkit-text-fill-color:CAPTURE_TITLE!important;color:CAPTURE_TITLE!important;text-shadow:none!important}
+input,textarea{font-family:system-ui,'Microsoft YaHei',sans-serif!important;font-weight:400!important;letter-spacing:normal!important;-webkit-text-stroke:0!important;text-shadow:none!important}
+input::placeholder,textarea::placeholder{font-weight:400!important;opacity:1!important}
+.card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+`.replaceAll('CAPTURE_BG',base).replaceAll('CAPTURE_TITLE',light?'#99568e':'#efd0f5');
+doc.head.appendChild(styles);
 }
 });
 const fileName='同词相遇-'+new Date().toISOString().slice(0,10)+'.png';
