@@ -156,6 +156,32 @@ return pending[name]
 }
 })();
 </script><script>
+
+// In the screenshot clone only: replace native form controls with inert text surfaces.
+// Native input value/placeholder rendering in html2canvas can create unwanted bands.
+function freezeCaptureFields(doc){
+ const originFields=[...document.querySelectorAll('input,textarea')];
+ const clonedFields=[...doc.querySelectorAll('input,textarea')];
+ clonedFields.forEach((field,i)=>{
+  const original=originFields[i]||field;
+  const style=doc.defaultView.getComputedStyle(field);
+  const value=original.value||'';
+  const placeholder=field.getAttribute('placeholder')||'';
+  const fake=doc.createElement('div');
+  const isPlaceholder=value.length===0;
+  fake.textContent=isPlaceholder?placeholder:value;
+  const props=['boxSizing','width','minHeight','height','padding','margin','border','borderRadius','backgroundColor','color','fontFamily','fontSize','fontWeight','lineHeight','letterSpacing','textAlign'];
+  props.forEach(p=>{fake.style[p]=style[p]});
+  fake.style.display='flex';fake.style.alignItems='center';fake.style.minWidth='0';
+  fake.style.width='100%';fake.style.backgroundImage='none';fake.style.boxShadow='none';fake.style.textShadow='none';
+  fake.style.webkitTextStroke='0';fake.style.webkitTextFillColor=isPlaceholder?(doc.documentElement.dataset.theme==='light'?'#9b90a7':'#9990ac'):style.color;
+  fake.style.color=isPlaceholder?(doc.documentElement.dataset.theme==='light'?'#9b90a7':'#9990ac'):style.color;
+  fake.style.whiteSpace='pre-wrap';fake.style.overflowWrap='anywhere';fake.style.overflow='hidden';
+  fake.setAttribute('aria-hidden','true');
+  field.replaceWith(fake);
+ });
+}
+
 const SAYINGS={
 first:['想到什么，就写什么','让直觉先出发','第一眼浮现的词，就是答案','我们的默契从这里开始','别犹豫，写下脑海里的第一个词'],
 next:['从上一轮的词里，寻找交集','再拐一个弯，也许就相遇了','试着找到两个词的共同秘密','两条思路，能否汇成一条？','沿着彼此的联想继续靠近','想想它们共享的颜色、场景或情绪'],
@@ -283,7 +309,7 @@ scrollX:0,scrollY:0,
 x:0,y:0,
 width:viewportWidth,height:fullHeight,
 windowWidth:viewportWidth,windowHeight:fullHeight,
-onclone:doc=>{
+onclone:doc=>{freezeCaptureFields(doc);
 const light=doc.documentElement.dataset.theme==='light';
 const base=light?'#faf6fd':'#131225';
 const body=doc.body;
