@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - 'sameword/**'
+      - 'index.html'
+      - 'group.html'
       - '.github/workflows/deploy-sameword.yml'
       - '.nojekyll'
   workflow_dispatch:
