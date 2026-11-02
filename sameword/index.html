@@ -208,7 +208,8 @@ if(d.type==='again'&&phase==='won')restart();
 if(d.type==='sync'){round=d.round;phase=d.phase;history=Array.isArray(d.history)?d.history:[];ready=d.ready;other=safe(d.hostName)||'房主';localSubmitted=!!(host?d.hostSubmitted:d.submitted);if(phase!=='entry')mySubmittedWord='';render()}
 }}
 function resolve(){if(!answers.host||!answers.guest)return;let a=answers.host,b=answers.guest;history.push({a,b,round});phase=norm(a)===norm(b)?'won':'reveal';answers={}}
-function submit(){let w=safe($('word').value).slice(0,24);if(!w){msg('先写下一个词吧');return}if(!ready){msg('请等待对方加入');return}if(localSubmitted)return;localSubmitted=true;mySubmittedWord=w;if(host){answers.host=w;resolve();sync()}else{send({type:'answer',word:w});render()}$('word').value=w;}{mySubmittedWord='';renderedHistoryKey='';round=1;history=[];answers={};phase='entry';localSubmitted=false;sync()}
+function submit(){let w=safe($('word').value).slice(0,24);if(!w){msg('先写下一个词吧');return}if(!ready){msg('请等待对方加入');return}if(localSubmitted)return;localSubmitted=true;mySubmittedWord=w;if(host){answers.host=w;resolve();sync()}else{send({type:'answer',word:w});render()}$('word').value=w;}
+function restart(){mySubmittedWord='';renderedHistoryKey='';round=1;history=[];answers={};phase='entry';localSubmitted=false;sync()}
 function next(){if(!host)return;if(phase==='reveal'){round++;phase='entry';answers={};localSubmitted=false;mySubmittedWord='';sync()}else if(phase==='won')restart()}
 function el(tag,cls,txt){let x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x}
 function renderWatch(d){$('spectateCode').textContent=code;$('spectateStatus').textContent=d.phase==='won'?'🎉 双方同频成功！':d.ready?'双方正在游戏，未揭晓的词语不会显示。':'等待两名玩家加入。';$('spectateRound').textContent='当前第 '+d.round+' 轮 · 已揭晓 '+d.history.length+' 轮';const box=$('spectateHistory');box.replaceChildren();d.history.forEach(h=>box.append(makeTraceCard(h.a,h.b,h.round,norm(h.a)===norm(h.b))))}
