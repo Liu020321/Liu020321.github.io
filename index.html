@@ -307,6 +307,24 @@ input::placeholder,textarea::placeholder{font-weight:400!important;opacity:1!imp
 
 `.replaceAll('CAPTURE_BG',base).replaceAll('CAPTURE_TITLE',light?'#99568e':'#efd0f5').replaceAll('CAPTURE_CARD',light?'#fffafc':'#242039').replaceAll('CAPTURE_INNER',light?'#f5effa':'#2b2742');
 doc.head.appendChild(styles);
+// Force solid text on the actual title node: Chromium's html2canvas may
+// paint background-clip gradients as full-width rectangles.
+doc.querySelectorAll('h1,.win h2').forEach(node=>{
+node.style.setProperty('background','none','important');
+node.style.setProperty('background-image','none','important');
+node.style.setProperty('background-clip','border-box','important');
+node.style.setProperty('-webkit-background-clip','border-box','important');
+node.style.setProperty('-webkit-text-fill-color',light?'#99568e':'#efd0f5','important');
+node.style.setProperty('color',light?'#99568e':'#efd0f5','important');
+});
+const extra=doc.createElement('style');
+extra.textContent=`
+html[data-theme="light"] .person,html[data-theme="dark"] .person{background-image:none!important;background:PERSON_BG!important}
+.person::before,.person::after{content:none!important;display:none!important}
+.person .avatar,.person strong,.person span{background:transparent!important;background-image:none!important}
+.hero h1,html[data-theme="light"] .hero h1,html[data-theme="dark"] .hero h1{background:none!important;background-image:none!important;-webkit-background-clip:border-box!important;-webkit-text-fill-color:TITLE_COLOR!important;color:TITLE_COLOR!important}
+`.replaceAll('PERSON_BG',light?'#f5eff9':'#2b2740').replaceAll('TITLE_COLOR',light?'#99568e':'#efd0f5');
+doc.head.appendChild(extra);
 }
 });
 const fileName='同词相遇-'+new Date().toISOString().slice(0,10)+'.png';
