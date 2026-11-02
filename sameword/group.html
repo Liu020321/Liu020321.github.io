@@ -44,7 +44,7 @@ try{await loadCapture();await document.fonts.ready;document.activeElement?.blur?
 };
 
 const $=x=>document.getElementById(x),show=(x,y)=>$(x).classList.toggle('hide',!y),clean=v=>String(v||'').trim().slice(0,24);
-const key='sameword-group-';let peer=null,joining=false,host=false,mode='player',code='',nick='',connections=new Map(),socket=null,phase='lobby',round=1,players=[],spectators=[],submissions={},records=[],locked=false,closed=false,seenHost=false,ending=false,session=0;
+const key='sameword-group-';let peer=null,joining=false,host=false,mode='player',code='',nick='',connections=new Map(),socket=null,phase='lobby',round=1,players=[],spectators=[],submissions={},records=[],locked=false,closed=false,seenHost=false,ending=false;
 const roomId=c=>key+c.toLowerCase(),randomCode=()=>Array.from(crypto.getRandomValues(new Uint8Array(6)),b=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[b%32]).join('');
 const normalize=v=>clean(v).normalize('NFKC').toLowerCase().replace(/\s+/g,'');
 let peerLoading=null;function loadPeer(){if(window.Peer)return Promise.resolve();if(peerLoading)return peerLoading;const urls=['https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js','https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js'];peerLoading=new Promise((ok,no)=>{let i=0;function attempt(){if(i>=urls.length){no(new Error('联机组件下载失败，请检查网络或尝试其他网络'));return}const t=document.createElement('script');t.src=urls[i++];t.async=true;t.onload=()=>window.Peer?ok():attempt();t.onerror=attempt;document.head.appendChild(t)}attempt()}).catch(e=>{peerLoading=null;throw e});return peerLoading}
